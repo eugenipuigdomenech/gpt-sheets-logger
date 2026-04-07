@@ -56,7 +56,7 @@ module.exports = async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const values = [[
-      formatTimestamp(),
+      'PROVA_FORMAT_NOU',
       chatbot,
       question,
       user_language,
