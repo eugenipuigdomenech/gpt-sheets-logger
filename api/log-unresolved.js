@@ -1,5 +1,23 @@
 const { google } = require('googleapis');
 
+function formatTimestamp() {
+  const now = new Date();
+
+  const local = new Date(
+    now.toLocaleString('en-US', { timeZone: 'Europe/Madrid' })
+  );
+
+  const day = String(local.getDate()).padStart(2, '0');
+  const month = String(local.getMonth() + 1).padStart(2, '0');
+  const year = local.getFullYear();
+
+  const hours = String(local.getHours()).padStart(2, '0');
+  const minutes = String(local.getMinutes()).padStart(2, '0');
+  const seconds = String(local.getSeconds()).padStart(2, '0');
+
+  return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -38,7 +56,7 @@ module.exports = async (req, res) => {
     const sheets = google.sheets({ version: 'v4', auth });
 
     const values = [[
-      new Date().toISOString(),
+      formatTimestamp(),
       chatbot,
       question,
       user_language,

@@ -1,0 +1,14 @@
+$kind: http-request
+name: ask-knowledge
+url: https://drive-knowledge-bridge.vercel.app/api/ask-knowledge
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"chatbot\": \"tfe\",\r
+
+    \    \"query\": \"que es el tfe?\"\r
+
+    }"
+order: 4469548109249240

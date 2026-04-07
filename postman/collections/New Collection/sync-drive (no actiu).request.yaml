@@ -1,0 +1,15 @@
+$kind: http-request
+name: sync-drive (no actiu)
+url: drive-knowledge-bridge.vercel.app/api/sync-drive
+method: POST
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: "{\r
+
+    \  \"chatbot\": \"practiques\"\r
+
+    }"
+order: 4482747514766263
