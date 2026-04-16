@@ -1,0 +1,16 @@
+$kind: http-request
+name: gemini-chat
+url: https://gemini-orchestrator.vercel.app/api/gemini-chat
+method: POST
+headers:
+  Content-Type: application/json
+body:
+  type: json
+  content: "{\r
+
+    \    \"chatbot\": \"tfe\",\r
+
+    \    \"message\": \"Com puc matricular el TFE?\"\r
+
+    }"
+order: 4492799363353712

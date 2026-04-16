@@ -1,0 +1,8 @@
+$kind: http-request
+name: gemini version names
+url: https://generativelanguage.googleapis.com/v1beta/models?key=AIzaSyBSC9bVhyLvvEWrNgQ-k_aswuJ5xGDM9yw
+method: GET
+queryParams:
+  - key: key
+    value: AIzaSyBSC9bVhyLvvEWrNgQ-k_aswuJ5xGDM9yw
+order: 4499246388195994

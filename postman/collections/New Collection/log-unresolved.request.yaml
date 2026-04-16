@@ -1,6 +1,6 @@
 $kind: http-request
 name: log-unresolved
-url: https://gpt-sheets-logger-eight.vercel.app/api/log-unresolved
+url: https://gpt-sheets-logger-ten.vercel.app/api/log-unresolved
 method: POST
 headers:
   Content-Type: application/json
@@ -8,17 +8,17 @@ body:
   type: json
   content: "{\r
 
-    \  \"chatbot\": \"tfe\",\r
+    \    \"chatbot\": \"tfe\",\r
 
-    \  \"question\": \"postman\",\r
+    \    \"question\": \"postman\",\r
 
-    \  \"user_language\": \"ca\",\r
+    \    \"user_language\": \"ca\",\r
 
-    \  \"context_hint\": \"definicio TFE\",\r
+    \    \"context_hint\": \"definicio TFE\",\r
 
-    \  \"source\": \"chatgpt_action\",\r
+    \    \"source\": \"chatgpt_action\",\r
 
-    \  \"status\": \"unresolved\"\r
+    \    \"status\": \"unresolved\"\r
 
     }"
 order: 1774602088555

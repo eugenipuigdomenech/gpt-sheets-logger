@@ -18,6 +18,41 @@ function formatTimestamp() {
   return `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
 }
 
+function buildRequestSummary(req) {
+  const userAgent = req.headers['user-agent'] || '';
+  const forwardedFor = req.headers['x-forwarded-for'] || '';
+  const referer = req.headers['referer'] || '';
+  const origin = req.headers['origin'] || '';
+
+  let clientGuess = 'unknown';
+
+  const ua = userAgent.toLowerCase();
+
+  if (
+    ua.includes('android') ||
+    ua.includes('iphone') ||
+    ua.includes('ipad') ||
+    ua.includes('mobile')
+  ) {
+    clientGuess = 'possible_mobile';
+  } else if (
+    ua.includes('windows') ||
+    ua.includes('macintosh') ||
+    ua.includes('linux') ||
+    ua.includes('x11')
+  ) {
+    clientGuess = 'possible_desktop';
+  }
+
+  const sourceType = 'chatgpt_action';
+  const uaStatus = userAgent ? 'ua_present' : 'ua_missing';
+  const ipStatus = forwardedFor ? 'ip_present' : 'ip_missing';
+  const refStatus = referer ? 'referer_present' : 'referer_missing';
+  const originStatus = origin ? 'origin_present' : 'origin_missing';
+
+  return `${sourceType} | ${clientGuess} | ${uaStatus} | ${ipStatus} | ${refStatus} | ${originStatus}`;
+}
+
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     return res.status(405).json({
@@ -43,6 +78,8 @@ module.exports = async (req, res) => {
       });
     }
 
+    const requestSummary = buildRequestSummary(req);
+
     const privateKey = process.env.GOOGLE_PRIVATE_KEY.replace(/\\n/g, '\n');
 
     const auth = new google.auth.GoogleAuth({
@@ -62,12 +99,13 @@ module.exports = async (req, res) => {
       user_language,
       context_hint,
       source,
-      status
+      status,
+      requestSummary
     ]];
 
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SPREADSHEET_ID,
-      range: 'Logs!A:G',
+      range: 'Logs!A:H',
       valueInputOption: 'RAW',
       requestBody: {
         values,
